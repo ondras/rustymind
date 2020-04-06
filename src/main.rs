@@ -1,11 +1,10 @@
-mod guess;
-mod util;
-mod score;
 mod ai;
+mod guess;
+mod score;
+mod util;
 
 use guess::Guess;
 use score::Score;
-
 
 pub const CODE_CHARS: u8 = 8;
 
@@ -22,7 +21,6 @@ trait Defender {
     fn score(&self, attempt: &Guess) -> Score;
 }
 
-
 fn game(mut attacker: impl Attacker, defender: impl Defender) {
     let mut rounds = 0;
     let mut previous: Option<History> = None;
@@ -32,7 +30,10 @@ fn game(mut attacker: impl Attacker, defender: impl Defender) {
 
         let attempt = attacker.guess(previous);
         if let Some(attempt) = attempt {
-            assert!(attempt.len() <= defender.code_length(), "Attempt is longer than code!");
+            assert!(
+                attempt.len() <= defender.code_length(),
+                "Attempt is longer than code!"
+            );
 
             let score = defender.score(&attempt);
             println!("Round #{}\n            {} | {}", rounds, score, attempt);

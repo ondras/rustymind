@@ -1,12 +1,11 @@
-use crate::CODE_CHARS;
-use crate::util;
 use crate::guess::Guess;
-
+use crate::util;
+use crate::CODE_CHARS;
 
 type Data = Vec<char>;
 
 pub struct Generator {
-	state: Data,
+    state: Data,
 }
 
 impl Generator {
@@ -24,7 +23,7 @@ impl Generator {
         Guess::new(self.state.clone())
     }
 
-	pub fn advance(&mut self) -> Result<(), ()> {
+    pub fn advance(&mut self) -> Result<(), ()> {
         let mut carry = false;
         let min = util::min_char() as u8;
 
@@ -34,16 +33,22 @@ impl Generator {
             value = (value + 1) % CODE_CHARS;
             *ch = (value + min) as char;
             carry = { value == overflow };
-            if !carry { break; }
+            if !carry {
+                break;
+            }
         }
 
-        if carry { Err(()) } else { Ok(()) }
+        if carry {
+            Err(())
+        } else {
+            Ok(())
+        }
     }
 }
 
 impl From<Data> for Generator {
     fn from(state: Data) -> Self {
-		Self { state }
+        Self { state }
     }
 }
 
@@ -54,7 +59,7 @@ mod tests {
     fn test_new() {
         assert_eq!(Generator::new(5).get().data, vec!['A', 'B', 'C', 'D', 'E']);
 
-        let last = Generator::new(CODE_CHARS+1).get().data.last().copied();
+        let last = Generator::new(CODE_CHARS + 1).get().data.last().copied();
         assert_eq!(last.unwrap(), 'A');
     }
 
@@ -106,7 +111,9 @@ mod tests {
         loop {
             count += 1;
             let result = gen.advance();
-            if result.is_err() { break; }
+            if result.is_err() {
+                break;
+            }
         }
 
         assert_eq!(count, (CODE_CHARS as u32).pow(code_length as u32));

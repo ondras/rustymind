@@ -1,9 +1,8 @@
-use rand::thread_rng;
-use rand::seq::SliceRandom;
-use crate::util;
 use crate::guess::Guess;
 use crate::score::Score;
-
+use crate::util;
+use rand::seq::SliceRandom;
+use rand::thread_rng;
 
 pub struct Defender {
     code: Guess,
@@ -13,7 +12,7 @@ impl crate::Defender for Defender {
     fn new(code_length: u8) -> Self {
         let all = util::all_chars();
         let mut data: Vec<char> = vec![];
-        for _ in 1..code_length+1 {
+        for _ in 1..code_length + 1 {
             let mut rng = thread_rng();
             data.push(*all.choose(&mut rng).unwrap());
         }
