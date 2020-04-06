@@ -1,5 +1,5 @@
 [package]
-name = "example"
+name = "rustymind"
 version = "0.1.0"
 authors = ["ondras"]
 edition = "2018"

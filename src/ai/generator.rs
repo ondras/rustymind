@@ -104,7 +104,7 @@ mod tests {
         let mut count = 0;
 
         loop {
-            count = count+1;
+            count += 1;
             let result = gen.advance();
             if result.is_err() { break; }
         }
