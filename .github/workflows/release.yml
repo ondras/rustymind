@@ -21,7 +21,7 @@ jobs:
       - run: |
           cd target/release
           chmod +x rustymind
-          gzip rustymind
+          gzip -f rustymind
           mv rustymind.gz ../../rustymind-x86_64-linux.gz
       - uses: actions/create-release@v1
         id: create_release  # needed for upload_url later
