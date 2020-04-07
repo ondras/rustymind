@@ -36,7 +36,7 @@ fn game(mut attacker: impl Attacker, defender: impl Defender) {
             );
 
             let score = defender.score(&attempt);
-            println!("Round #{}\n            {} | {}", rounds, score, attempt);
+            println!("Round #{}\n           {} | {}", rounds, score, attempt);
 
             if score.is_won() {
                 println!("The code was found in {} rounds.", rounds);
