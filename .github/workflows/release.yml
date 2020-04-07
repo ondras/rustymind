@@ -20,9 +20,7 @@ jobs:
           args: --release
       - run: |
           cd target/release
-          chmod +x rustymind
-          gzip -f rustymind
-          mv rustymind.gz ../../rustymind-x86_64-linux.gz
+          zip -r ../../rustymind-x86_64-linux.zip rustymind
       - uses: actions/create-release@v1
         id: create_release  # needed for upload_url later
         env:
