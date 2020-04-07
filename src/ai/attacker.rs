@@ -41,7 +41,7 @@ impl crate::Attacker for Attacker {
     }
 }
 
-fn satisfies_history(test: &Guess, history: &[History]) -> bool {
+fn satisfies_history(test: &Guess, history: &Vec<History>) -> bool {
     for (attempt, score) in history {
         let alt_score = Score::compute(attempt, test);
         if alt_score != *score {
