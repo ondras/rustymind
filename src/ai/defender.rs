@@ -18,7 +18,7 @@ impl crate::Defender for Defender {
             data.push(*all.choose(&mut rng).unwrap());
         }
 
-        let code = Guess::new(data);
+        let code = Guess::from(data);
         println!(
             "The {} is | {}",
             Style::new().bold().paint("secret code"),

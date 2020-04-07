@@ -6,14 +6,16 @@ pub struct Guess {
 }
 
 impl Guess {
-    pub fn new(data: Vec<char>) -> Self {
+    pub fn len(&self) -> u8 {
+        self.data.len() as u8
+    }
+}
+
+impl From<Vec<char>> for Guess {
+    fn from(data: Vec<char>) -> Self {
         Self {
             data: data.into_iter().map(|x| x.to_ascii_uppercase()).collect(),
         }
-    }
-
-    pub fn len(&self) -> u8 {
-        self.data.len() as u8
     }
 }
 

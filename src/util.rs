@@ -28,7 +28,7 @@ pub fn max_char() -> char {
 
 pub fn all_chars() -> Vec<char> {
     let mut result = vec![];
-    for i in (min_char() as u8)..(max_char() as u8) {
+    for i in (min_char() as u8)..(max_char() as u8 + 1) {
         result.push(i as char);
     }
     result

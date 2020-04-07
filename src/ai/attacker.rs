@@ -4,29 +4,21 @@ use crate::score::Score;
 use crate::History;
 
 pub struct Attacker {
-    history: Vec<History>,
     generator: Generator,
 }
 
 impl crate::Attacker for Attacker {
     fn new(code_length: u8) -> Self {
-        Self {
-            generator: Generator::new(code_length),
-            history: vec![],
-        }
+        Self { generator: Generator::new(code_length) }
     }
 
-    fn guess(&mut self, previous: Option<History>) -> Option<Guess> {
-        if let Some(h) = previous {
-            self.history.push(h);
-        }
-
+    fn guess(&mut self, history: &[History]) -> Option<Guess> {
         let mut guess: Option<Guess> = None;
 
         loop {
             let g = self.generator.get();
 
-            if satisfies_history(&g, &self.history) {
+            if satisfies_history(&g, history) {
                 guess = Some(g);
                 break;
             } else {

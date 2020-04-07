@@ -20,7 +20,7 @@ impl Generator {
     }
 
     pub fn get(&self) -> Guess {
-        Guess::new(self.state.clone())
+        Guess::from(self.state.clone())
     }
 
     pub fn advance(&mut self) -> Result<(), ()> {
