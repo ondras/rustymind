@@ -1,10 +1,9 @@
 use crate::guess::Guess;
 use crate::score::Score;
 use crate::util;
+use ansi_term::Style;
 use rand::seq::SliceRandom;
 use rand::thread_rng;
-use ansi_term::Style;
-
 
 pub struct Defender {
     code: Guess,
@@ -20,9 +19,13 @@ impl crate::Defender for Defender {
         }
 
         let code = Guess::new(data);
-        println!("The {} is | {}", Style::new().bold().paint("secret code"), code);
-        print!  ("======================");
-        for _ in 0..(3*code.data.len()) {
+        println!(
+            "The {} is | {}",
+            Style::new().bold().paint("secret code"),
+            code
+        );
+        print!("======================");
+        for _ in 0..(3 * code.data.len()) {
             print!("=");
         }
         println!();
