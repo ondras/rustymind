@@ -16,7 +16,8 @@ jobs:
           override: true
       - uses: actions-rs/cargo@v1
         with:
-          command: build --release
+          command: build
+          args: --release
       - run: |
           zip -r rustymind-x86_64-linux.zip target/release/rustymind
       - uses: actions/create-release@v1
