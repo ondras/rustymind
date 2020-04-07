@@ -24,11 +24,6 @@ impl crate::Defender for Defender {
             Style::new().bold().paint("secret code"),
             code
         );
-        print!("======================");
-        for _ in 0..(3 * code.data.len()) {
-            print!("=");
-        }
-        println!();
 
         Self { code }
     }
