@@ -19,7 +19,9 @@ jobs:
           command: build
           args: --release
       - run: |
-          zip -r rustymind-x86_64-linux.zip target/release/rustymind
+          cd target/release
+          chmod +x rustymind
+          gzip -c rustymind > rustymind-x86_64-linux.gz
       - uses: actions/create-release@v1
         id: create_release  # needed for upload_url later
         env:
@@ -32,6 +34,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./rustymind-x86_64-linux.zip
-          asset_name: rustymind-x86_64-linux.zip
-          asset_content_type: application/zip
+          asset_path: ./rustymind-x86_64-linux.gz
+          asset_name: rustymind-x86_64-linux.gz
+          asset_content_type: application/x-gzip
