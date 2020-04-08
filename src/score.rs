@@ -2,7 +2,6 @@ use crate::guess::Guess;
 use std::fmt;
 use termion::{color, style};
 
-
 #[derive(Debug, PartialEq)]
 pub struct Score {
     black: u8,
@@ -78,9 +77,9 @@ mod tests {
     use super::*;
     #[test]
     fn test_score_no_repeat() {
-        let code = Guess::new(vec!['a', 'b', 'c', 'd']);
+        let code = Guess::from(vec!['a', 'b', 'c', 'd']);
 
-        let score = Score::compute(&Guess::new(vec![]), &code);
+        let score = Score::compute(&Guess::from(vec![]), &code);
         assert_eq!(
             score,
             Score {
@@ -90,7 +89,7 @@ mod tests {
             }
         );
 
-        let score = Score::compute(&Guess::new(vec!['a']), &code);
+        let score = Score::compute(&Guess::from(vec!['a']), &code);
         assert_eq!(
             score,
             Score {
@@ -100,7 +99,7 @@ mod tests {
             }
         );
 
-        let score = Score::compute(&Guess::new(vec!['b']), &code);
+        let score = Score::compute(&Guess::from(vec!['b']), &code);
         assert_eq!(
             score,
             Score {
@@ -110,7 +109,7 @@ mod tests {
             }
         );
 
-        let score = Score::compute(&Guess::new(vec!['a', 'x', 'b']), &code);
+        let score = Score::compute(&Guess::from(vec!['a', 'x', 'b']), &code);
         assert_eq!(
             score,
             Score {
@@ -120,7 +119,7 @@ mod tests {
             }
         );
 
-        let score = Score::compute(&Guess::new(vec!['b', 'a', 'd', 'c']), &code);
+        let score = Score::compute(&Guess::from(vec!['b', 'a', 'd', 'c']), &code);
         assert_eq!(
             score,
             Score {
@@ -130,7 +129,7 @@ mod tests {
             }
         );
 
-        let score = Score::compute(&Guess::new(vec!['a', 'b', 'c']), &code);
+        let score = Score::compute(&Guess::from(vec!['a', 'b', 'c']), &code);
         assert_eq!(
             score,
             Score {
@@ -140,7 +139,7 @@ mod tests {
             }
         );
 
-        let score = Score::compute(&Guess::new(vec!['a', 'a', 'a']), &code);
+        let score = Score::compute(&Guess::from(vec!['a', 'a', 'a']), &code);
         assert_eq!(
             score,
             Score {
@@ -150,7 +149,7 @@ mod tests {
             }
         );
 
-        let score = Score::compute(&Guess::new(vec!['x', 'a', 'a']), &code);
+        let score = Score::compute(&Guess::from(vec!['x', 'a', 'a']), &code);
         assert_eq!(
             score,
             Score {
@@ -163,9 +162,9 @@ mod tests {
 
     #[test]
     fn test_score_repeat() {
-        let code = Guess::new(vec!['a', 'b', 'a', 'c']);
+        let code = Guess::from(vec!['a', 'b', 'a', 'c']);
 
-        let score = Score::compute(&Guess::new(vec![]), &code);
+        let score = Score::compute(&Guess::from(vec![]), &code);
         assert_eq!(
             score,
             Score {
@@ -175,7 +174,7 @@ mod tests {
             }
         );
 
-        let score = Score::compute(&Guess::new(vec!['a']), &code);
+        let score = Score::compute(&Guess::from(vec!['a']), &code);
         assert_eq!(
             score,
             Score {
@@ -185,7 +184,7 @@ mod tests {
             }
         );
 
-        let score = Score::compute(&Guess::new(vec!['b']), &code);
+        let score = Score::compute(&Guess::from(vec!['b']), &code);
         assert_eq!(
             score,
             Score {
@@ -195,7 +194,7 @@ mod tests {
             }
         );
 
-        let score = Score::compute(&Guess::new(vec!['a', 'x', 'b']), &code);
+        let score = Score::compute(&Guess::from(vec!['a', 'x', 'b']), &code);
         assert_eq!(
             score,
             Score {
@@ -205,7 +204,7 @@ mod tests {
             }
         );
 
-        let score = Score::compute(&Guess::new(vec!['b', 'a', 'c', 'a']), &code);
+        let score = Score::compute(&Guess::from(vec!['b', 'a', 'c', 'a']), &code);
         assert_eq!(
             score,
             Score {
@@ -215,7 +214,7 @@ mod tests {
             }
         );
 
-        let score = Score::compute(&Guess::new(vec!['a', 'b', 'a']), &code);
+        let score = Score::compute(&Guess::from(vec!['a', 'b', 'a']), &code);
         assert_eq!(
             score,
             Score {
@@ -225,7 +224,7 @@ mod tests {
             }
         );
 
-        let score = Score::compute(&Guess::new(vec!['a', 'a', 'a']), &code);
+        let score = Score::compute(&Guess::from(vec!['a', 'a', 'a']), &code);
         assert_eq!(
             score,
             Score {
@@ -235,7 +234,7 @@ mod tests {
             }
         );
 
-        let score = Score::compute(&Guess::new(vec!['x', 'a', 'x', 'a']), &code);
+        let score = Score::compute(&Guess::from(vec!['x', 'a', 'x', 'a']), &code);
         assert_eq!(
             score,
             Score {
@@ -245,7 +244,7 @@ mod tests {
             }
         );
 
-        let score = Score::compute(&Guess::new(vec!['c', 'a', 'b', 'a']), &code);
+        let score = Score::compute(&Guess::from(vec!['c', 'a', 'b', 'a']), &code);
         assert_eq!(
             score,
             Score {
@@ -255,7 +254,7 @@ mod tests {
             }
         );
 
-        let score = Score::compute(&Guess::new(vec!['c', 'a', 'a']), &code);
+        let score = Score::compute(&Guess::from(vec!['c', 'a', 'a']), &code);
         assert_eq!(
             score,
             Score {
