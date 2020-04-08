@@ -19,6 +19,12 @@ With an explicit code length:
 $ cargo run -- 5
 ```
 
+If you want to guess:
+
+```sh
+$ cargo run -- --i-guess
+```
+
 Tests:
 
 ```sh
@@ -28,4 +34,4 @@ $ cargo test
 ## TODO
 
   - [X] GH Actions to lint, test, and release
-  - [ ] the `--i-guess` option
+  - [X] the `--i-guess` option
