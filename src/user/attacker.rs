@@ -1,7 +1,7 @@
-use std::io;
-use crate::util;
 use crate::guess::Guess;
+use crate::util;
 use crate::History;
+use std::io;
 
 pub struct Attacker {
     code_length: u8,
@@ -40,7 +40,9 @@ impl crate::Attacker for Attacker {
         let mut input = String::new();
         loop {
             self.prompt();
-            io::stdin().read_line(&mut input).expect("Failed to read line");
+            io::stdin()
+                .read_line(&mut input)
+                .expect("Failed to read line");
             if let Some(guess) = self.parse(input.trim()) {
                 return Some(guess);
             }

@@ -1,21 +1,17 @@
 use crate::CODE_CHARS;
-use ansi_term::Colour;
+use termion::color;
 
-pub fn letter_colour(ch: char) -> Colour {
+pub fn format_char(ch: char) -> String {
     match ch {
-        'A' => Colour::Red,
-        'B' => Colour::Green,
-        'C' => Colour::Blue,
-        'D' => Colour::Yellow,
-        'E' => Colour::Purple,
-        'F' => Colour::Cyan,
-        'G' => Colour::White,
-        _ => Colour::Black,
+        'A' => format!("{}", color::Fg(color::LightRed)),
+        'B' => format!("{}", color::Fg(color::LightGreen)),
+        'C' => format!("{}", color::Fg(color::LightBlue)),
+        'D' => format!("{}", color::Fg(color::LightYellow)),
+        'E' => format!("{}", color::Fg(color::LightMagenta)),
+        'F' => format!("{}", color::Fg(color::LightCyan)),
+        'G' => format!("{}", color::Fg(color::LightWhite)),
+        _ => format!("{}", color::Fg(color::LightBlack)),
     }
-}
-
-pub fn pad(s: String) -> String {
-    format!(" {} ", s)
 }
 
 pub fn min_char() -> char {

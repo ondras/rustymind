@@ -1,8 +1,8 @@
 mod ai;
-mod user;
 mod config;
 mod guess;
 mod score;
+mod user;
 mod util;
 
 use config::Config;
@@ -44,13 +44,16 @@ fn game(mut attacker: impl Attacker, defender: impl Defender) -> String {
             );
 
             let score = defender.score(&attempt);
+
             println!(
                 "Round #{}           |\n           {} | {}",
-                history.len()+1, score, attempt
+                history.len() + 1,
+                score,
+                attempt
             );
 
             if score.is_won() {
-                return format!("The code was found in {} rounds.", history.len()+1);
+                return format!("The code was found in {} rounds.", history.len() + 1);
             }
 
             history.push((attempt, score));
@@ -68,7 +71,7 @@ fn main() {
 
     let defender = ai::defender::Defender::new(config.code_length);
     let attacker = ai::attacker::Attacker::new(defender.code_length());
-//    let attacker = user::attacker::Attacker::new(defender.code_length());
+    //    let attacker = user::attacker::Attacker::new(defender.code_length());
 
     print_line(config.code_length);
     let result = game(attacker, defender);

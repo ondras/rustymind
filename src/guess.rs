@@ -1,5 +1,6 @@
 use crate::util;
 use std::fmt;
+use termion::{color, style};
 
 pub struct Guess {
     pub data: Vec<char>,
@@ -21,11 +22,17 @@ impl From<Vec<char>> for Guess {
 
 impl fmt::Display for Guess {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}", style::Bold)?;
         for ch in self.data.iter() {
-            let colour = util::letter_colour(*ch);
-            let ch = util::pad(ch.to_string());
-            write!(f, "{}", colour.bold().paint(ch))?;
+            let char_color = util::format_char(*ch);
+            write!(
+                f,
+                "{} {} {}",
+                char_color,
+                ch.to_string(),
+                color::Fg(color::Reset)
+            )?;
         }
-        Ok(())
+        write!(f, "{}", style::Reset)
     }
 }

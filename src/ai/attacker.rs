@@ -9,7 +9,9 @@ pub struct Attacker {
 
 impl crate::Attacker for Attacker {
     fn new(code_length: u8) -> Self {
-        Self { generator: Generator::new(code_length) }
+        Self {
+            generator: Generator::new(code_length),
+        }
     }
 
     fn guess(&mut self, history: &[History]) -> Option<Guess> {

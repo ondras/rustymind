@@ -1,7 +1,7 @@
 use crate::guess::Guess;
-use crate::util;
-use ansi_term::{Colour, Style};
 use std::fmt;
+use termion::{color, style};
+
 
 #[derive(Debug, PartialEq)]
 pub struct Score {
@@ -50,16 +50,26 @@ impl Score {
 
 impl fmt::Display for Score {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let black = util::pad(self.black.to_string());
-        let black = Style::new()
-            .fg(Colour::Black)
-            .on(Colour::White)
-            .paint(black);
+        let reset_color = format!("{}{}", color::Fg(color::Reset), color::Bg(color::Reset));
+        let black = format!(
+            "{}{} {} {}",
+            color::Fg(color::Black),
+            color::Bg(color::White),
+            self.black.to_string(),
+            reset_color
+        );
 
-        let white = util::pad(self.white.to_string());
-        let white = Style::new().bold().fg(Colour::White).paint(white);
+        let white = format!(
+            "{}{} {} {}",
+            color::Fg(color::LightWhite),
+            color::Bg(color::Reset),
+            self.white.to_string(),
+            reset_color
+        );
 
-        write!(f, "{} {}", black, white)
+        write!(f, "{}", style::Bold)?;
+        write!(f, "{} {}", black, white)?;
+        write!(f, "{}", style::Reset)
     }
 }
 
