@@ -8,8 +8,8 @@ mod util;
 use config::Config;
 use guess::Guess;
 use score::Score;
-use termion::cursor;
 use termion::clear;
+use termion::cursor;
 
 pub const CODE_CHARS: u8 = 8;
 
@@ -49,11 +49,7 @@ fn game(mut attacker: Box<dyn Attacker>, defender: impl Defender) -> String {
 
             let score = defender.score(&attempt);
 
-            println!(
-                "           {} | {}",
-                score,
-                attempt
-            );
+            println!("           {} | {}", score, attempt);
 
             if score.is_won() {
                 return format!("The code was found in {} rounds.", history.len() + 1);

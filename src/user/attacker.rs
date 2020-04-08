@@ -1,9 +1,9 @@
 use crate::guess::Guess;
 use crate::util;
 use crate::History;
-use std::io::{Write, stdout, stdin};
-use termion::cursor;
+use std::io::{stdin, stdout, Write};
 use termion::clear;
+use termion::cursor;
 
 pub struct Attacker {
     code_length: u8,
@@ -17,7 +17,7 @@ impl Attacker {
     fn prompt(&self) {
         let g = Guess::from(util::all_chars());
         println!(" -> Enter your guess. Available chars: {}", g);
-        print!  (" -> ");
+        print!(" -> ");
         stdout().flush().unwrap();
     }
 
@@ -46,7 +46,12 @@ impl crate::Attacker for Attacker {
             self.prompt();
             let mut input = String::new();
             stdin().read_line(&mut input).expect("Cannot read input");
-            print!("{}{}{}", cursor::Left(100), cursor::Up(2), clear::AfterCursor);
+            print!(
+                "{}{}{}",
+                cursor::Left(100),
+                cursor::Up(2),
+                clear::AfterCursor
+            );
 
             if let Some(guess) = self.parse(input.trim()) {
                 return Some(guess);

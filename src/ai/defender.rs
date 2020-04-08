@@ -18,15 +18,13 @@ impl crate::Defender for Defender {
             data.push(*all.choose(&mut rng).unwrap());
         }
 
-        Self { code: Guess::from(data) }
+        Self {
+            code: Guess::from(data),
+        }
     }
 
     fn print_header(&self, show_code: bool) {
-        print!(
-            "The {}secret code{} is | ",
-            style::Bold,
-            style::Reset
-        );
+        print!("The {}secret code{} is | ", style::Bold, style::Reset);
 
         if show_code {
             println!("{}", self.code);
