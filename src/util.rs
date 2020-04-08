@@ -10,6 +10,7 @@ pub fn format_char(ch: char) -> String {
         'E' => format!("{}", color::Fg(color::LightMagenta)),
         'F' => format!("{}", color::Fg(color::LightCyan)),
         'G' => format!("{}", color::Fg(color::LightWhite)),
+        '?' => format!("{}", color::Fg(color::LightWhite)),
         _ => format!("{}", color::Fg(color::LightBlack)),
     }
 }

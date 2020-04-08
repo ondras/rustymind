@@ -8,13 +8,14 @@ mod util;
 use config::Config;
 use guess::Guess;
 use score::Score;
+use termion::cursor;
+use termion::clear;
 
 pub const CODE_CHARS: u8 = 8;
 
 type History = (Guess, Score);
 
 trait Attacker {
-    fn new(code_length: u8) -> Self;
     fn guess(&mut self, previous: &[History]) -> Option<Guess>;
 }
 
@@ -22,6 +23,7 @@ trait Defender {
     fn new(code_length: u8) -> Self;
     fn code_length(&self) -> u8;
     fn score(&self, attempt: &Guess) -> Score;
+    fn print_header(&self, show_code: bool);
 }
 
 fn print_line(code_length: u8) {
@@ -32,10 +34,12 @@ fn print_line(code_length: u8) {
     println!();
 }
 
-fn game(mut attacker: impl Attacker, defender: impl Defender) -> String {
+fn game(mut attacker: Box<dyn Attacker>, defender: impl Defender) -> String {
     let mut history: Vec<History> = vec![];
 
     loop {
+        println!("Round #{:<12}|", history.len() + 1);
+
         let attempt = attacker.guess(&history);
         if let Some(attempt) = attempt {
             assert!(
@@ -46,8 +50,7 @@ fn game(mut attacker: impl Attacker, defender: impl Defender) -> String {
             let score = defender.score(&attempt);
 
             println!(
-                "Round #{}           |\n           {} | {}",
-                history.len() + 1,
+                "           {} | {}",
                 score,
                 attempt
             );
@@ -69,9 +72,20 @@ fn main() {
         std::process::exit(1);
     });
 
+    print!("{}{}", clear::All, cursor::Goto(1, 1));
+
     let defender = ai::defender::Defender::new(config.code_length);
-    let attacker = ai::attacker::Attacker::new(defender.code_length());
-    //    let attacker = user::attacker::Attacker::new(defender.code_length());
+    let attacker: Box<dyn Attacker>;
+
+    if config.ai {
+        let a = ai::attacker::Attacker::new(defender.code_length());
+        attacker = Box::new(a);
+        defender.print_header(true);
+    } else {
+        let a = user::attacker::Attacker::new(defender.code_length());
+        attacker = Box::new(a);
+        defender.print_header(false);
+    }
 
     print_line(config.code_length);
     let result = game(attacker, defender);

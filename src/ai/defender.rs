@@ -18,15 +18,22 @@ impl crate::Defender for Defender {
             data.push(*all.choose(&mut rng).unwrap());
         }
 
-        let code = Guess::from(data);
-        println!(
-            "The {}secret code{} is | {}",
+        Self { code: Guess::from(data) }
+    }
+
+    fn print_header(&self, show_code: bool) {
+        print!(
+            "The {}secret code{} is | ",
             style::Bold,
-            style::Reset,
-            code
+            style::Reset
         );
 
-        Self { code }
+        if show_code {
+            println!("{}", self.code);
+        } else {
+            let q: Vec<char> = self.code.data.iter().map(|_| '?').collect();
+            println!("{}", Guess::from(q));
+        }
     }
 
     fn code_length(&self) -> u8 {

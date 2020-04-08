@@ -7,13 +7,15 @@ pub struct Attacker {
     generator: Generator,
 }
 
-impl crate::Attacker for Attacker {
-    fn new(code_length: u8) -> Self {
+impl Attacker {
+    pub fn new(code_length: u8) -> Self {
         Self {
             generator: Generator::new(code_length),
         }
     }
+}
 
+impl crate::Attacker for Attacker {
     fn guess(&mut self, history: &[History]) -> Option<Guess> {
         let mut guess: Option<Guess> = None;
 
